@@ -57,18 +57,18 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: auth})
     .then(userDoc => {
       if(!userDoc){
-        console.log(userDoc);
-        return
+        const error = new Error('No user found!');
+        error.statusCode = 401;
+        throw error;
       }
       loadeduser = userDoc;
       return bcrypt.compare(password, userDoc.password)
       .then(result => {
         if(!result){
-          console.log('Password Did not Match!');
-          res.status(401).json({ message: 'Password Wrong Password', username: auth });
-          return
+          const error = new Error('Password Did not match');
+          error.statusCode = 401;
+          throw error;
         }
-        console.log('username', loadeduser.username);
         console.log('Logged In!');
         const token = jwt.sign({
           username: loadeduser.username,
@@ -80,6 +80,6 @@ exports.postLogin = (req, res, next) => {
     .catch(err => {
       console.log(err);
 
-    })
+    });
 
 }

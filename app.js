@@ -10,6 +10,7 @@ const MONGODB_URI = 'mongodb://localhost/insta-clone?retryWrites=true';
 
 const authRoutes = require('./routes/auth');
 const getpost = require('./routes/getpost');
+const createpost = require('./routes/createpost');
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -35,13 +36,14 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST, DELETE, PUT, PATCH');
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST, DELETE, PUT, PATCH, GET');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
 
 app.use(authRoutes);
 app.use(getpost);
+app.use(createpost);
 
 mongoose.connect(MONGODB_URI,  { useNewUrlParser: true ,useUnifiedTopology: true })
   .then(result => {

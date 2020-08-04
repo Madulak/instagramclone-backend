@@ -20,6 +20,6 @@ const postSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Like'
   }]
-})
+},{timestamps: true})
 
 module.exports = mongoose.model('Post', postSchema);
