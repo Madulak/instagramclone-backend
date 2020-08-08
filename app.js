@@ -51,7 +51,7 @@ app.use(authRoutes);
 app.use(getpost);
 app.use(createpost);
 
-mongoose.connect(MONGODB_URI,  { useNewUrlParser: true ,useUnifiedTopology: true })
+mongoose.connect(MONGO,  { useNewUrlParser: true ,useUnifiedTopology: true })
   .then(result => {
     app.listen(process.env.PORT || 8080);
     console.log('Server Running!!');
