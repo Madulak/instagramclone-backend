@@ -5,11 +5,14 @@ const multer = require('multer');
 const path = require('path');
 const helmet = require('helmet');
 const compression = require('compression');
+var cors = require('cors')
 
 const app = express();
 
+app.use(cors())
+
 const MONGODB_URI = 'mongodb://localhost/insta-clone?retryWrites=true';
-const MONGO =` mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-kczql.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
+const MONGO = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-kczql.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
 
 const authRoutes = require('./routes/auth');
 const getpost = require('./routes/getpost');
