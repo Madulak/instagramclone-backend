@@ -32,8 +32,6 @@ const fileFilter = (req, file, cb) => {
   }
 }
 
-app.use(helmet());
-app.use(compression());
 
 app.use(bodyParser.urlencoded( {extended: false} ));
 app.use(multer({storage: fileStorage, filterFile: fileFilter}).single('image'));
@@ -46,6 +44,9 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
+
+app.use(helmet());
+app.use(compression());
 
 app.use(authRoutes);
 app.use(getpost);
