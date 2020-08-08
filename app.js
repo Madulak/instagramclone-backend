@@ -3,10 +3,13 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
+const helmet = require('helmet');
+const compression = require('compression');
 
 const app = express();
 
 const MONGODB_URI = 'mongodb://localhost/insta-clone?retryWrites=true';
+const MONGO =` mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-kczql.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
 
 const authRoutes = require('./routes/auth');
 const getpost = require('./routes/getpost');
@@ -29,6 +32,9 @@ const fileFilter = (req, file, cb) => {
   }
 }
 
+app.use(helmet());
+app.use(compression());
+
 app.use(bodyParser.urlencoded( {extended: false} ));
 app.use(multer({storage: fileStorage, filterFile: fileFilter}).single('image'));
 app.use('/images', express.static(path.join(__dirname, 'images')));
@@ -47,7 +53,7 @@ app.use(createpost);
 
 mongoose.connect(MONGODB_URI,  { useNewUrlParser: true ,useUnifiedTopology: true })
   .then(result => {
-    app.listen(8080);
+    app.listen(process.env.PORT || 8080);
     console.log('Server Running!!');
   })
   .catch(err => {

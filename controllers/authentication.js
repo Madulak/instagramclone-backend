@@ -40,7 +40,6 @@ exports.postSignup = (req, res, next) => {
         })
         .then(results => {
           res.status(201).json({message: 'User successfully created'});
-          console.log('user created')
         })
       })
       .catch(err => {
@@ -78,7 +77,7 @@ exports.postLogin = (req, res, next) => {
       })
     })
     .catch(err => {
-      console.log(err);
+      res.status(401).json(err);
 
     });
 

@@ -1,0 +1,7 @@
+{
+  "env": {
+    "MONGO_USER": "palazo",
+    "MONGO_PASSWORD": "VFPFYNzxz9j7gpy",
+    "MONGO_DEFAULT_DATABASE": "instaclone"
+  }
+}

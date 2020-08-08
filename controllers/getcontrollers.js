@@ -35,9 +35,9 @@ exports.getSinglepost = (req, res, next) => {
 
   Post.findById(postId)
     .populate('postCreator')
+    .populate({path: 'comment', populate: {path: 'commentCreator'}})
     .populate('like')
     .then(postDoc => {
-      console.log(postDoc);
       res.status(200).json({data: postDoc})
     })
     .catch(err => {

@@ -161,7 +161,6 @@ exports.postCreatepost = (req, res, next) => {
   const mediaUrl = req.file.path;
   const postCreator = req.userId;
 
-  console.log('[Post Text] ',postText)
   let user;
   let post;
 
